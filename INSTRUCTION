@@ -1,12 +1,12 @@
-**To Build**
+## To Build
 1. Make sure you installed CMake, g++, and commom library and build utils. It was testd on Ubuntu.
 2. Run the following commands on Linux console: 
    $ cmake -DCMAKE_BUILD_TYPE=Debug CMakeLists.txt
    $ make
-**To Run**
+## To Run
 $ ./test
 
-**Notes**
+** Notes **
 1. It is work in progress.
 2. It took me already 4 hours to get here. This is the best I can do with 4 hours.
 3. I have not had time working on the details of generating calls with uniformly distributed and other requirements.
