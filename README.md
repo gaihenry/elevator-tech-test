@@ -54,7 +54,7 @@ We are looking for high quality work, so we would rather see something that is f
 If there are additional features or changes that you wuld like to implement with more time, enumerate them in the README.
 
 **Design**
-I will add a doc for my thoughts
+I will add a doc, INSTRUCTION, for my thoughts.Please refer to it for details.
 
 
 
