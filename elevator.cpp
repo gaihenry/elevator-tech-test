@@ -18,7 +18,3 @@ Elevator::~Elevator()
 }
 
 /////////
-bool Elevator::parse()
-{
-	return true;
-}

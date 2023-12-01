@@ -26,6 +26,5 @@ class ElevatorCall
 		int num; //number of passengers together
 		int waiting;//waiting time for pickup
 	private:
-		bool parse();
 };
 #endif

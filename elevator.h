@@ -41,6 +41,5 @@ class Elevator
 		}
 	private:
 		int maxCapacity;
-		bool parse();
 };
 #endif

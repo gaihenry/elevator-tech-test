@@ -19,10 +19,15 @@
 class Simulator
 {
 	public:
-		static void generateCalls(std::vector<ElevatorCall> &calls);
+		//n - number of calls to generate
+		static void generateCalls(std::vector<ElevatorCall> &calls, int n);
 	private:
 		Simulator();
 		~Simulator();
+		//For calling floor and frequency of calls, [1, 100] for floors
+		static int uniform_dist(const unsigned int seed, int min, int max);
+		//For number of passengers per call, [0, 5]
+		static int lognormal_dist(double m, double s);
 
 };
 #endif

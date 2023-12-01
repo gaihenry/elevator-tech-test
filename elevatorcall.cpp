@@ -19,7 +19,3 @@ ElevatorCall::~ElevatorCall()
 }
 
 /////////
-bool ElevatorCall::parse()
-{
-	return true;
-}

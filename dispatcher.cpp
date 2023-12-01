@@ -91,16 +91,20 @@ void Dispatcher::dispatchCalls()
 	std::lock_guard<std::mutex> guard(m_mutex);
 	for (auto &elevator : *m_elevators) {
 		//std::lock_guard<std::mutex> guard(m_mutex);
-		std::cout << "\nElevator " << elevator.name << " and dst = " <<elevator.destinations.size();
+		std::cout << "\nElevator " << elevator.name << " at floor " << elevator.floor << std::endl;
+		std::cout << "\tnumber of dsts = " << elevator.destinations.size();
+		std::cout << "\tnumber of passengers = " << elevator.num;
 		if (!elevator.destinations.empty()) {
-			std::cout << "\nElevator " << elevator.name << " is NOT idle";
+			std::cout << "\nElevator " << elevator.name << " is ";
 			if (elevator.floor < elevator.destinations[0].floor) {
 				//Move up one floor at a time
 				elevator.floor++;
+				std::cout << "moving UP"<< std::endl;
 			}
 			else if (elevator.floor > elevator.destinations[0].floor) {
 				//Move down one floor
 				elevator.floor--;
+				std::cout << "moving DOWN" << std::endl;
 			}
 			else {
 				//We are here so remove the first dest call from this queue
@@ -121,9 +125,11 @@ void Dispatcher::dispatchCalls()
 
                 		//Update number of passengers for this elevator
                 		elevator.num = std::max(0, elevator.num - num);
+				std::cout << "dropping OFF and now number of passengers inside " << elevator.num << std::endl;
 			}
 		}
 		else if (!m_queue->empty()) {
+			std::cout << "\nElevator " << elevator.name << " is IDLE\n"; 
 			std::cout << "\nChecking queue with size = " << m_queue->size() << std::endl;
 			ElevatorCall call = m_queue->front();
 			m_queue->pop_front();
@@ -134,7 +140,7 @@ void Dispatcher::dispatchCalls()
 //
 void Dispatcher::assignElevator(ElevatorCall &call)
 {
-	//Find the elevator taking shortest time for this call request
+	//Find the elevator that can take the shortest time for this call request
 	int min = INT_MAX;
     	int index = 0;
 	int first_not_full = -1;
@@ -156,15 +162,20 @@ void Dispatcher::assignElevator(ElevatorCall &call)
 	auto &dst = (*m_elevators)[index];
 	if (!dst.isFull(call.num)) {
 		dst.destinations.push_back(call);
+		std::cout << "Elevator " << dst.name << " picking UP ";
+		std::cout << "at floor " << call.floor << std::endl;
 		std::sort(dst.destinations.begin(), dst.destinations.end(),
               		[](const ElevatorCall& a, const ElevatorCall& b) {
                   	return a.floor < b.floor;
               });
 	} else {
 		//select any one that is not full
+		//@TODO update the minWait
 		if (first_not_full >= 0) {
 			auto &dst2 = (*m_elevators)[first_not_full];
 			dst2.destinations.push_back(call);
+			std::cout << "Elevator " << dst2.name << " picking UP\n";
+			std::cout << "at floor " << call.floor << std::endl;
 			std::sort(dst2.destinations.begin(), dst2.destinations.end(),
               			[](const ElevatorCall& a, const ElevatorCall& b) {
                   		return a.floor < b.floor;
@@ -183,8 +194,6 @@ bool Dispatcher::processCalls(std::vector<ElevatorCall> &calls)
 		if (m_queue != nullptr) {
 			m_queue->push_back(call);
 		}
-		//stats
-		//g_TotalPassengers += call.num;
 	}
 	return true;
 }

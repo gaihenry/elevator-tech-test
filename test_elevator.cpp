@@ -48,7 +48,18 @@ int main(int argc, char *argv[]) {
 
 	//Use simulator to produce calls
 	vector<ElevatorCall> calls2;
-	Simulator::generateCalls(calls2);
+	Simulator::generateCalls(calls2, 100);
+	std::cout << "\nSimulating number of calls: " << calls2.size() << std::endl;
+	disp->processCalls(calls);
+	//Stats
+	stat = disp->getStats();
+	std::cout << "\nStats for this run\n";
+	std::cout << "\tAverage Time Waiting: " << stat.totalWait / n << std::endl;
+	std::cout << "\tAverage Time Inside: " << stat.totalInside / n << std::endl;
+	std::cout << "\tAverage Time Total: " << (stat.totalWait + stat.totalInside ) / n << std::endl;
+	std::cout << "\tThe Min Time Waiting: " << stat.minWait << std::endl;
+	std::cout << "\tThe MAX Time Waiting: " << stat.maxWait << std::endl;
+	
 	//Join the thread
 	Dispatcher::stop();
 	worker.join();
