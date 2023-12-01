@@ -8,8 +8,9 @@ $ ./test
 
 ** Notes **
 1. It is work in progress.
-2. It took me already 4 hours to get here. This is the best I can do with 4 hours.
-3. I have not had time working on the details of generating calls with uniformly distributed and other requirements.
+2. It took me already 4 hours to get here. This is the best I can do with 4 hours. 
+3. I spent today a bit extra time to put in the simulation code.
+   (I have not had time working on the details of generating calls with uniformly distributed and other requirements.)
 4. I need more time to work on the Dispatching logic.
 
 Overall:
@@ -17,5 +18,19 @@ Overall:
 2. One worker thread works on the the queue to dispatch calls to elevators.
 3. An API for producing calls.
 4. Elevator, Call Elevator, and Dispatcher classes were defined to represent the objects in the test.
-5. Simulator class is a utility class for Part B, it is dummy right now.
+5. Simulator class is a utility class for Part B, it is working now.
 6. A testing program for basic unit and flow test, to make sure it builds and runs.
+
+## Logic
+1. Each elevator object maintain its own array of destinations, and sorted when new destination added. So that it will always move
+   the first dest in the array and drop it off when reahing its destination floor.
+2. A double ended queue for storing the call requests. And the dispatcher class picks an elevator for the call in the queue based on
+   if it takes the shorter time to pick up.
+3. This dispatching to a elevator car and how an elevator car move is an open ended question. 
+   I tried to start with a simple one to demonstrate 
+   the architecture and design of the system as well as code implementation. 
+   Apparently there are a lot of room to improve, and certaily it has some bugs.
+   We can work it out later.
+## Summary
+I think the intension of this homework test is to show you how much I can produce in about 4 hours timeframe, and for you to assess. 
+Any feedbacks, recommendations, advices are very welcome! 
